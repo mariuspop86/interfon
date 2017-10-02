@@ -79,8 +79,13 @@ datachannel.openSignalingChannel = function(config) {
 
   // Proxy Pusher signaller messages to DataChannel
   pusherChannel.bind("message", function(message) {
-    console.log('message ',message);
     config.onmessage(message);
+    if(message && message.participant) {
+      if(currentUser.stream){
+        console.log('streaming');
+        datachannel.send(currentUser.stream);
+      }
+    }
   });
 
   return socket;
@@ -97,10 +102,6 @@ var onCreateChannel = function() {
   disableConnectInput();
 
   datachannel.open(channelName);
-  // if(currentUser.stream){
-  //   console.log('streaming');
-  //   datachannel.send(currentUser.stream);
-  // }
 };
 
 var onJoinChannel = function() {
