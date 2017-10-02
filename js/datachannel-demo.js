@@ -83,9 +83,7 @@ datachannel.openSignalingChannel = function(config) {
   return socket;
 };
 
-var onCreateChannel = function(value) {
-  value = value || channelInput.value;
-  console.log(value,channelInput.value);
+var onCreateChannel = function() {
   var channelName = cleanChannelName(channelInput.value);
 
   if (!channelName) {
@@ -95,13 +93,10 @@ var onCreateChannel = function(value) {
 
   disableConnectInput();
 
-  console.log("Trying to create channel "+channelName);
   datachannel.open(channelName);
 };
 
-var onJoinChannel = function(value) {
-  value = value || channelInput.value;
-  console.log(value,channelInput.value);
+var onJoinChannel = function() {
   var channelName = cleanChannelName(channelInput.value);
 
   if (!channelName) {
@@ -111,7 +106,6 @@ var onJoinChannel = function(value) {
 
   disableConnectInput();
 
-  console.log("Trying to join channel "+channelName);
   // Search for existing data channels
   datachannel.connect(channelName);
 };
@@ -198,6 +192,3 @@ datachannel.onopen = function (userId) {
 datachannel.onmessage = function (message, userId) {
   addMessage(message, userId);
 };
-
-// onCreateChannel('interfon-channel');
-// onJoinChannel('interfon-channel')
