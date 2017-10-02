@@ -190,5 +190,6 @@ datachannel.onopen = function (userId) {
 };
 
 datachannel.onmessage = function (message, userId) {
+  console.log(message);
   addMessage(message, userId);
 };

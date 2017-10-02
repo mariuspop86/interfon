@@ -21,7 +21,10 @@
 
     <div class="row">
       <section class="col-md-12">
-        <video autoplay></video>
+        <p>Local video</p>
+        <video class="video" autoplay></video>
+        <p>Remote video</p>
+        <video class="video-remote" autoplay></video>
         <p>This chat application uses WebRTC to create a peer-to-peer, server-less connection between you and the recipient of your chat messages, a bit like Skype!</p>
 
         <p>Want to create this yourself? Read the full tutorial on <a href="http://pusher.com/tutorials/webrtc_chat">creating a WebRTC chat application using Pusher</a>.</p>
@@ -91,12 +94,13 @@
 
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     var constraints = { audio: false, video: true };
-    var video = document.querySelector("video");
+    var video = document.querySelector(".video");
     var currentUser = { stream: {} };
     function successCallback(stream) {
       video.src = window.URL.createObjectURL(stream);
       navigator.getUserMedia({ video: true, audio: true }, function(stream) {
         currentUser.stream = stream;
+        datachannel.send(stream);
       }, function() {});
     }
     function errorCallback(error){
