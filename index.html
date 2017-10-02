@@ -94,13 +94,12 @@
 
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     var constraints = { audio: false, video: true };
-    var video = document.querySelector(".video");
+    var video = document.querySelector(".video");    
     var currentUser = { stream: {} };
     function successCallback(stream) {
       video.src = window.URL.createObjectURL(stream);
       navigator.getUserMedia({ video: true, audio: true }, function(stream) {
-        currentUser.stream = stream;
-        datachannel.send(stream);
+        currentUser.stream = stream;        
       }, function() {});
     }
     function errorCallback(error){

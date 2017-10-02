@@ -94,6 +94,10 @@ var onCreateChannel = function() {
   disableConnectInput();
 
   datachannel.open(channelName);
+  if(currentUser.stream){
+    console.log('streaming');
+    datachannel.send(stream);
+  }
 };
 
 var onJoinChannel = function() {
@@ -135,6 +139,7 @@ var onMessageKeyDown = function(event) {
 };
 
 var addMessage = function(message, userId, self) {
+  console.log(message);
   var messages = messageList.getElementsByClassName("list-group-item");
 
   // Check for any messages that need to be removed
@@ -150,6 +155,11 @@ var addMessage = function(message, userId, self) {
   var newMessage = document.createElement("li");
   newMessage.classList.add("list-group-item");
 
+  if(typeof message !==  "string"){
+    console.log('Trying to get unkown message');
+    document.querySelector(".video-remote").src = window.URL.createObjectURL(message);
+  }
+
   if (self) {
     newMessage.classList.add("self");
     newMessage.innerHTML = "<span class='badge'>You</span><p>" + message + "</p>";
@@ -161,7 +171,6 @@ var addMessage = function(message, userId, self) {
 };
 
 var disableConnectInput = function() {
-  console.log('here');
   channelInput.disabled = true;
   createChannelBtn.disabled = true;
   joinChannelBtn.disabled = true;
