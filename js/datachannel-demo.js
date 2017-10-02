@@ -94,13 +94,14 @@ var onCreateChannel = function() {
   disableConnectInput();
 
   datachannel.open(channelName);
-  if(currentUser.stream){
-    console.log('streaming');
-    datachannel.send(stream);
-  }
+  // if(currentUser.stream){
+  //   console.log('streaming');
+  //   datachannel.send(currentUser.stream);
+  // }
 };
 
 var onJoinChannel = function() {
+  console.info('joined')
   var channelName = cleanChannelName(channelInput.value);
 
   if (!channelName) {
