@@ -1,24 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Pusher WebRTC Chat Demo - Frameset</title>
+  <head><title>getUserMedia</title></head>
+  <body>
+    <video autoplay></video>
+    <script type="text/javascript" src="pusher.js"></script>
 
-  <script>
-    var frameLoad = function() {
-      var chat1 = document.getElementById("chat-1");
-      var chat2 = document.getElementById("chat-2");
+    <script>
+      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+      var constraints = { audio: false, video: true };
+      var video = document.querySelector("video");
+      function successCallback(stream) {
+        video.src = window.URL.createObjectURL(stream);
+      }
+      function errorCallback(error){
+        console.log("getUserMedia error: ", error);
+      }
+      navigator.getUserMedia(constraints, successCallback, errorCallback);
 
-      var channelName = "my-chat-room-" + Math.round(Math.random() * 9999);
+      var currentUser = {
+        name: 'Tommy',
+        id: 42
+      };
 
-      chat1.src = "chat.html?channel=" + channelName;
-      chat2.src = "chat.html?channel=" + channelName;
-    };
-  </script>
-</head>
+      var pusher = new Pusher('5e613cf066db77ef9bd6', { 
+        authEndpoint: 'message.php',
+        auth: {
+          params: currentUser
+        }
+      });
 
-<frameset onload="frameLoad();" cols="50%,50%">
- <frame id="chat-1"/>
- <frame id="chat-2"/>
-</frameset>
+      var channel = pusher.subscribe('presence-chat');
 
+      channel.bind('pusher:subscription_succeeded', function() {
+        console.log('Channel members:', channel.members);
+      });
+    </script>
+  </body>
 </html>
