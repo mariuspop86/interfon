@@ -130,7 +130,7 @@ var onSendMessage = function() {
     console.log("No message given");
     return;
   }
-
+debugger;
   datachannel.send(message);
   addMessage(message, window.userid, true);
 
