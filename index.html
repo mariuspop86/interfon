@@ -86,7 +86,12 @@
           results = regex.exec(location.search);
       return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
-
+    var c = Math.round(1,100);
+    var currentUser = {
+      name: 'Tommy '+c,
+      id: c
+    };
+    alert(c);
     // var channel = getParameterByName("channel");
 
     // if (channel) {
