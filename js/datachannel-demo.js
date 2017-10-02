@@ -41,7 +41,7 @@ datachannel.openSignalingChannel = function(config) {
       $.ajax({
         type: "POST",
         // url: "/message", // Node.js & Ruby (Sinatra)
-        url: "_servers/php/message.php", // PHP
+        url: "message.php", // PHP
         data: {
           socketId: socketId,
           channel: channel,
