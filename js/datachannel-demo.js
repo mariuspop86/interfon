@@ -79,7 +79,7 @@ datachannel.openSignalingChannel = function(config) {
 
   // Proxy Pusher signaller messages to DataChannel
   pusherChannel.bind("message", function(message) {
-    console.log('message '+message);
+    console.log('message ',message);
     config.onmessage(message);
   });
 
