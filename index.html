@@ -105,7 +105,7 @@
         currentUser.stream = stream;        
       }, function() {});
 
-      var pusher = new Pusher("5e613cf066db77ef9bd6", { cluster: "eu" }, authEndpoint: 'message.php');
+      var pusher = new Pusher("5e613cf066db77ef9bd6", { cluster: "eu", authEndpoint: 'message.php' } );
 
       channel = pusher.subscribe('presence-chat');
 
