@@ -21,6 +21,7 @@
 
     <div class="row">
       <section class="col-md-12">
+        <video autoplay></video>
         <p>This chat application uses WebRTC to create a peer-to-peer, server-less connection between you and the recipient of your chat messages, a bit like Skype!</p>
 
         <p>Want to create this yourself? Read the full tutorial on <a href="http://pusher.com/tutorials/webrtc_chat">creating a WebRTC chat application using Pusher</a>.</p>
@@ -98,7 +99,7 @@
       console.log("getUserMedia error: ", error);
     }
     navigator.getUserMedia(constraints, successCallback, errorCallback);
-    
+
   </script>
 </body>
 </html>
