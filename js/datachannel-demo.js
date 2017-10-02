@@ -73,11 +73,13 @@ datachannel.openSignalingChannel = function(config) {
 
   // Call callback on successful connection to Pusher signalling channel
   pusherChannel.bind("pusher:subscription_succeeded", function() {
+    console.log('subscription_succeeded');
     if (config.callback) config.callback(socket);
   });
 
   // Proxy Pusher signaller messages to DataChannel
   pusherChannel.bind("message", function(message) {
+    console.log('message');
     config.onmessage(message);
   });
 
