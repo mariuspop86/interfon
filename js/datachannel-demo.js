@@ -86,7 +86,7 @@ datachannel.openSignalingChannel = function(config) {
 var onCreateChannel = function(value) {
   value = value || channelInput.value;
   console.log(value,channelInput.value);
-  var channelName = cleanChannelName(value);
+  var channelName = cleanChannelName(channelInput.value);
 
   if (!channelName) {
     console.log("No channel name given");
@@ -102,7 +102,7 @@ var onCreateChannel = function(value) {
 var onJoinChannel = function(value) {
   value = value || channelInput.value;
   console.log(value,channelInput.value);
-  var channelName = cleanChannelName(value);
+  var channelName = cleanChannelName(channelInput.value);
 
   if (!channelName) {
     console.log("No channel name given");
