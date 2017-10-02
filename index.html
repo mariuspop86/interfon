@@ -75,8 +75,8 @@
   <script src="//webrtc-experiment.com/DataChannel.js"></script>
 
   <!-- Our WebRTC application -->
-  <!-- <script src="js/datachannel-demo.js"></script> -->
-  <script src="js/simple-peer.js"></script>
+  <script src="js/datachannel-demo.js"></script>
+  <!-- <script src="js/simple-peer.js"></script> -->
 
   <!-- Fill channel name -->
   <script>
@@ -86,20 +86,20 @@
           results = regex.exec(location.search);
       return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
-    function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
-}
-    var c = getRandomArbitrary(1,100);
-    var currentUser = {
-      name: 'Tommy '+c,
-      id: c
-    };
-    alert(c);
-    // var channel = getParameterByName("channel");
+//     function getRandomArbitrary(min, max) {
+//   return Math.random() * (max - min) + min;
+// }
+    // var c = getRandomArbitrary(1,100);
+    // var currentUser = {
+    //   name: 'Tommy '+c,
+    //   id: c
+    // };
+    // alert(c);
+    var channel = getParameterByName("channel");
 
-    // if (channel) {
-    //   document.querySelector(".demo-chat-channel-input").value = channel;
-    // }
+    if (channel) {
+      document.querySelector(".demo-chat-channel-input").value = channel;
+    }
 
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     var constraints = { audio: false, video: true };
@@ -113,13 +113,13 @@
         currentUser.stream = stream;        
       }, function() {});
 
-      var pusher = new Pusher("5e613cf066db77ef9bd6", { cluster: "eu", authEndpoint: 'message.php' } );
+      /*var pusher = new Pusher("5e613cf066db77ef9bd6", { cluster: "eu", authEndpoint: 'message.php' } );
 
       channel = pusher.subscribe('presence-interfon');
 
       channel.bind('pusher:subscription_succeeded', function() {
         console.log('Channel members:', channel.members);
-      });
+      });*/
 
     }
     function errorCallback(error){
@@ -127,7 +127,7 @@
     }
     navigator.getUserMedia(constraints, successCallback, errorCallback);
 
-var onCreateChannel = function() {
+/*var onCreateChannel = function() {
    peer = new SimplePeer({ initiator: true,stream: currentUser.stream });
       console.log(peer);
 
@@ -174,7 +174,7 @@ var onJoinChannel = function() {
 var createChannelBtn = document.querySelector(".demo-chat-create");
 var joinChannelBtn = document.querySelector(".demo-chat-join");
 createChannelBtn.addEventListener("click", onCreateChannel);
-joinChannelBtn.addEventListener("click", onJoinChannel);
+joinChannelBtn.addEventListener("click", onJoinChannel);*/
 
   </script>
 </body>
