@@ -115,7 +115,7 @@
 
       var pusher = new Pusher("5e613cf066db77ef9bd6", { cluster: "eu", authEndpoint: 'message.php' } );
 
-      channel = pusher.subscribe('interfon');
+      channel = pusher.subscribe('presence-interfon');
 
       channel.bind('pusher:subscription_succeeded', function() {
         console.log('Channel members:', channel.members);
