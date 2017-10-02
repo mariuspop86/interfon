@@ -75,7 +75,8 @@
   <script src="//webrtc-experiment.com/DataChannel.js"></script>
 
   <!-- Our WebRTC application -->
-  <script src="js/datachannel-demo.js"></script>
+  <!-- <script src="js/datachannel-demo.js"></script> -->
+  <script src="js/simple-peer.js"></script>
 
   <!-- Fill channel name -->
   <script>
@@ -86,26 +87,85 @@
       return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
 
-    var channel = getParameterByName("channel");
+    // var channel = getParameterByName("channel");
 
-    if (channel) {
-      document.querySelector(".demo-chat-channel-input").value = channel;
-    }
+    // if (channel) {
+    //   document.querySelector(".demo-chat-channel-input").value = channel;
+    // }
 
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     var constraints = { audio: false, video: true };
     var video = document.querySelector(".video");    
     var currentUser = { stream: {} };
+    var peer = undefined;
+    var channel = undefined;
     function successCallback(stream) {
       video.src = window.URL.createObjectURL(stream);
       navigator.getUserMedia({ video: true, audio: true }, function(stream) {
         currentUser.stream = stream;        
       }, function() {});
+
+      var pusher = new Pusher("5e613cf066db77ef9bd6", { cluster: "eu" });
+
+      channel = pusher.subscribe('presence-chat');
+
+      channel.bind('pusher:subscription_succeeded', function() {
+        console.log('Channel members:', channel.members);
+      });
+
     }
     function errorCallback(error){
       console.log("getUserMedia error: ", error);
     }
     navigator.getUserMedia(constraints, successCallback, errorCallback);
+
+var onCreateChannel = function() {
+   peer = new SimplePeer({ initiator: true,stream: currentUser.stream });
+
+    peer.on('signal', function (data) {
+      channel.trigger('client-signal-' + peerUserId, { userId: currentUser.id, data: data });
+    });
+
+    peer.on('ready', function () {
+      peer.send('hey peer, how is it going?')
+    });
+
+    peer.on('stream', function(stream) {
+      var video = document.querySelector("video");
+      video.src = window.URL.createObjectURL(stream);
+    });
+};
+
+var onJoinChannel = function() {
+  console.info('joined')
+  channel.bind('client-signal-' + currentUser.id, function(signal) {
+  if (peer === undefined) {
+    peer = new SimplePeer({stream: currentUser.stream});
+
+    peer.on('signal', function (data) {
+      channel.trigger('client-signal-' + signal.userId, { userId: currentUser.id, data: data });
+    });
+
+    peer.on('message', function (data) {
+      console.log('got a message from remote peer: ' + data);
+    });
+  }
+  
+  peer.on('stream', function(stream) {
+    var video = document.querySelector("video");
+    video.src = window.URL.createObjectURL(stream);
+  });
+  peer.signal(signal.data)
+});
+};
+
+
+
+    var channelInput = document.querySelector(".demo-chat-channel-input");
+var createChannelBtn = document.querySelector(".demo-chat-create");
+var joinChannelBtn = document.querySelector(".demo-chat-join");
+createChannelBtn.addEventListener("click", onCreateChannel);
+joinChannelBtn.addEventListener("click", onJoinChannel);
 
   </script>
 </body>
