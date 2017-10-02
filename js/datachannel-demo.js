@@ -14,12 +14,13 @@ var socketId;
 
 Pusher.log = function(message) {
   if (window.console && window.console.log) {
-    window.console.log(message);
+    // window.console.log(message);
   }
 };
 
 // Monitor Pusher connection state
 pusher.connection.bind("state_change", function(states) {
+  console.log(states);
   switch (states.current) {
     case "connected":
       socketId = pusher.connection.socket_id;
