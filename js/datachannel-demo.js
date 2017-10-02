@@ -82,8 +82,9 @@ datachannel.openSignalingChannel = function(config) {
   return socket;
 };
 
-var onCreateChannel = function() {
-  var channelName = cleanChannelName(channelInput.value);
+var onCreateChannel = function(value) {
+  value = value || channelInput.value;
+  var channelName = cleanChannelName(value);
 
   if (!channelName) {
     console.log("No channel name given");
@@ -92,11 +93,13 @@ var onCreateChannel = function() {
 
   disableConnectInput();
 
+  console.log("Trying to create channel "+channelName);
   datachannel.open(channelName);
 };
 
-var onJoinChannel = function() {
-  var channelName = cleanChannelName(channelInput.value);
+var onJoinChannel = function(value) {
+  value = value || channelInput.value;
+  var channelName = cleanChannelName(value);
 
   if (!channelName) {
     console.log("No channel name given");
@@ -105,6 +108,7 @@ var onJoinChannel = function() {
 
   disableConnectInput();
 
+  console.log("Trying to join channel "+channelName);
   // Search for existing data channels
   datachannel.connect(channelName);
 };
@@ -173,6 +177,7 @@ var messageInput = document.querySelector(".demo-chat-message-input");
 var sendBtn = document.querySelector(".demo-chat-send");
 var messageList = document.querySelector(".demo-chat-messages");
 
+
 // Set up DOM listeners
 createChannelBtn.addEventListener("click", onCreateChannel);
 joinChannelBtn.addEventListener("click", onJoinChannel);
@@ -189,3 +194,6 @@ datachannel.onopen = function (userId) {
 datachannel.onmessage = function (message, userId) {
   addMessage(message, userId);
 };
+
+onCreateChannel('interfon-channel');
+onJoinChannel('interfon-channel')
