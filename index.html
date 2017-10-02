@@ -129,7 +129,7 @@
 
 var onCreateChannel = function() {
    peer = new SimplePeer({ initiator: true,stream: currentUser.stream });
-      debugger;
+      console.log(peer);
 
     peer.on('signal', function (data) {
       channel.trigger('client-signal-' + peer.UserId, { userId: currentUser.id, data: data });
