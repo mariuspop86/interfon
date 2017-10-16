@@ -51,6 +51,8 @@
       var video = document.querySelector("video");
       video.src = window.URL.createObjectURL(stream);
     });
+
+    peer.send(stream);
   }
   function errorCallback(error){
     console.log("getUserMedia error: ", error);

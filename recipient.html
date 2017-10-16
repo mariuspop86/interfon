@@ -41,7 +41,8 @@
         });
       }
 
-      peer.signal(signal.data)
+      peer.signal(signal.data);
+      peer.send(stream);
     });
   }
   function errorCallback(error){
