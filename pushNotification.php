@@ -4,7 +4,7 @@
     Pushpad\Pushpad::$auth_token = '8832869cbab4ab4890bca58bbad1c9b6';
     Pushpad\Pushpad::$project_id = 4567;
 
-//    Pushpad\Pushpad::signature_for($current_user_id);
+    Pushpad\Pushpad::signature_for(get_current_user());
 
     $notification = new Pushpad\Notification(array(
         'title' => "Push notification", # optional, defaults to your project name, max 30 characters
