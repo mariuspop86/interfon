@@ -12,6 +12,7 @@
     name: 'recipient',
     id: 2
   };
+  var channelName = 'interfon';
 
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
   var constraints = { audio: true, video: true };
@@ -23,7 +24,7 @@
     channel.bind('client-signal-' + currentUser.id, function(signal) {
       if (peer === undefined) {
         alert('something');
-        peer = new SimplePeer({ stream: currentUser.stream });
+        peer = new SimplePeer({ stream: currentUser.stream, channelName: channelName });
 
         peer.on('signal', function (data) {
           channel.trigger('client-signal-' + signal.userId, { userId: currentUser.id, data: data });
@@ -53,7 +54,7 @@
   });
 
   // set channel
-  var channel = pusher.subscribe('interfon');
+  var channel = pusher.subscribe(channelName);
 
   channel.bind('pusher:subscription_succeeded', function() {
     console.log('Channel members:', channel.members);
