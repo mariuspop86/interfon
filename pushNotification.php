@@ -45,4 +45,4 @@
 //    $notification->deliver_to($users, ["tags" => ["tag1 && tag2", "tag3"]]); # equal to "tag1 && tag2 || tag3"
 
     # deliver to everyone
-    $notification->broadcast();
+//    $notification->broadcast();
