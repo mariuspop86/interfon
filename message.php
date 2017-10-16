@@ -2,8 +2,6 @@
 require_once("config.php");
 require __DIR__ . '/vendor/autoload.php';
 
-file_put_contents('info.txt', json_encode(file_get_contents("php://input")));
-
 class MyLogger {
   public function log( $msg ) {
     print_r( $msg . "\n" );
@@ -20,4 +18,6 @@ $pusher = new Pusher(APP_KEY, APP_SECRET, APP_ID, array('cluster' => APP_CLUSTER
 $pusher->trigger($_POST["channel"], "message", $_POST["message"], $_POST["socketId"], true);
 
 header("Status: 200");
+echo json_decode(file_get_contents("php://input"));
+
 ?>
