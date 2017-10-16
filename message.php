@@ -2,6 +2,8 @@
 require_once("config.php");
 require __DIR__ . '/vendor/autoload.php';
 
+file_put_contents('info.txt', file_get_contents("php://input"));
+
 class MyLogger {
   public function log( $msg ) {
     print_r( $msg . "\n" );
