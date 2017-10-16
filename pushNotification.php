@@ -1,6 +1,8 @@
 <?php
     require_once('vendor/autoload.php');
 
+    var_dump('dada');die;
+
     Pushpad\Pushpad::$auth_token = '8832869cbab4ab4890bca58bbad1c9b6';
     Pushpad\Pushpad::$project_id = 4567;
 
