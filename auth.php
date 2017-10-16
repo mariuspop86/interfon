@@ -6,6 +6,14 @@
  * Time: 11:38
  */
 echo '<pre>';
+echo "server<br>";
+print_r($_SERVER);
+echo "post<br>";
+print_r($_POST);
+echo "get<br>";
+print_r($_GET);
+echo "request<br>";
+print_r($_REQUEST);
 print_r(json_decode(file_get_contents('php://input')));exit;
 require_once("config.php");
 require __DIR__ . '/vendor/autoload.php';
