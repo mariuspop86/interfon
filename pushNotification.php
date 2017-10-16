@@ -54,5 +54,3 @@
     # deliver to everyone
     $notification->broadcast();
     var_dump("5");
-
-    die;
