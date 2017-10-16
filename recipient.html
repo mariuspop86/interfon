@@ -54,7 +54,7 @@
   });
 
   // set channel
-  var channel = pusher.subscribe(channelName);
+  var channel = pusher.channel(channelName);
 
   channel.bind('pusher:subscription_succeeded', function() {
     console.log('Channel members:', channel.members);
