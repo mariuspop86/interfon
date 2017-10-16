@@ -2,13 +2,9 @@
     require_once('vendor/autoload.php');
 
     Pushpad\Pushpad::$auth_token = '8832869cbab4ab4890bca58bbad1c9b6';
-    var_dump("1");
     Pushpad\Pushpad::$project_id = 4567;
-    var_dump("2");
 
-
-    Pushpad\Pushpad::signature_for($current_user_id);
-    var_dump("3");
+//    Pushpad\Pushpad::signature_for($current_user_id);
 
     $notification = new Pushpad\Notification(array(
         'title' => "Push notification", # optional, defaults to your project name, max 30 characters
@@ -31,7 +27,6 @@
         'starred' => true # optional, bookmark the notification in the Pushpad dashboard (e.g. to highlight manual notifications)
     ));
 //
-    var_dump("4");
 //    # deliver to a user
 //    $notification->deliver_to($user_id);
 //
@@ -53,4 +48,3 @@
 
     # deliver to everyone
     $notification->broadcast();
-    var_dump("5");
