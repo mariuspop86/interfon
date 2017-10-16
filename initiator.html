@@ -69,7 +69,7 @@
 
   // remotes stuff
     var peer = new SimplePeer({ initiator: true, stream: currentUser.stream });
-
+    console.log(peer);
     peer.on('signal', function (data) {
       console.log('on signal');
       channel.trigger('client-signal-' + currentUser.id, { userId: currentUser.id, data: data });
