@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head><title>getUserMedia</title></head>
+<style type="text/css">
+  video {
+    width: 230px
+    height: 480px;
+  }
+</style>
 <body>
 <video autoplay></video>
 
@@ -25,12 +31,18 @@
     id: guid(),
     stream: undefined
   };
-  Pusher.logToConsole = true;
-
-
+  // Pusher.logToConsole = true;
 
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-  var constraints = { audio: true, video: true };
+  var constraints = { 
+    audio: true, 
+    video: {
+      mandatory: {
+        minWidth: 320,
+        minHeight: 480
+      }
+    } 
+  };
   var video = document.querySelector("video");
   function successCallback(stream) {
     console.log('stream success callback');
@@ -90,6 +102,19 @@
           appendMessage(peerUserName, data);
         }*/
       });
+
+      function close(userId, name) {
+        var peer = peers[userId];
+        if (peer) {
+          peer.destroy();
+          peers[userId] = undefined;
+        }
+        // $("[data-user-id='" + userId + "']").remove();
+        // appendMessage(name, '<em>Disconnected</em>');
+      }
+      
+      peer.on('close', function() { close(peerUserId, peerUserName) });
+      $(window).on('beforeunload', function() { close(peerUserId, peerUserName) });
 
       return peer;
     }
