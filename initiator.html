@@ -95,12 +95,12 @@
     }
 
     channel.bind('pusher:subscription_succeeded', function() {
-      console.log('Channel members:', channel.members);
+//      console.log('Channel members:', channel.members);
       lookForPeers();
     });
 
     channel.bind('client-signal-' + currentUser.id, function(signal) {
-      console.log('client-signal-' + currentUser.id);
+//      console.log('client-signal-' + currentUser.id);
       var peer = peers[signal.userId];
 
       if (peer === undefined) {
@@ -109,7 +109,7 @@
 
       peer.on('ready', function() {
         alert('connected');
-//        appendMessage(signal.userName, '<em>Connected</em>');
+//        appendMesqsage(signal.userName, '<em>Connected</em>');
       });
       peer.signal(signal.data)
     });
