@@ -39,6 +39,7 @@
   var channel = pusher.subscribe('interfon');
 
   channel.bind('pusher:subscription_succeeded', function() {
+    alert('Channel members:', channel.members);
     console.log('Channel members:', channel.members);
   });
 
