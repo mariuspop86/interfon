@@ -12,4 +12,4 @@ require __DIR__ . '/vendor/autoload.php';
 $pusher = new Pusher(APP_KEY, APP_SECRET, APP_ID, array('cluster' => APP_CLUSTER));
 
 $presence_data = array('name' => $_POST['name']);
-echo $pusher->socket_auth($_POST['channel_name'], $_POST['socket_id'], $_POST['id'], $presence_data);
+echo $pusher->presence_auth($_POST['channel_name'], $_POST['socket_id'], $_POST['id'], $presence_data);
