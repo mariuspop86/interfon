@@ -90,8 +90,6 @@
         var video = document.querySelector("video");
         video.src = window.URL.createObjectURL(stream);
       });
-//      peer.on('close', function() { close(peerUserId, peerUserName) });
-//      $(window).on('beforeunload', function() { close(peerUserId, peerUserName) });
 
       peer.on('message', function (data) {
         console.log(data);
@@ -112,9 +110,9 @@
         // $("[data-user-id='" + userId + "']").remove();
         // appendMessage(name, '<em>Disconnected</em>');
       }
-      
+
       peer.on('close', function() { close(peerUserId, peerUserName) });
-      $(window).on('beforeunload', function() { close(peerUserId, peerUserName) });
+      window.onbeforeunload = function() { close(peerUserId, peerUserName) };
 
       return peer;
     }
@@ -139,38 +137,12 @@
       peer.signal(signal.data)
     });
 
-
-//    var peer = new SimplePeer({ initiator: true, stream: currentUser.stream, channelName: channelName });
-//    console.log(peer);
-//    peer.on('signal', function (data) {
-//      console.log('on signal');
-//      channel.trigger('client-signal-' + currentUser.id, { userId: currentUser.id, data: data });
-//    });
-//
-//    peer.on('ready', function () {
-//      console.log('on ready');
-//      peer.send('hey peer, how is it going?')
-//    });
-//
-//    peer.on('stream', function(stream) {
-//      console.log('on stream');
-//      var video = document.querySelector("video");
-//      video.src = window.URL.createObjectURL(stream);
-//    });
-//
-//    peer.send(stream);
   }
   function errorCallback(error){
     console.log("getUserMedia error: ", error);
   }
 
-
-
   navigator.getUserMedia(constraints, successCallback, errorCallback);
-
-/*
-* this new stuff
-*/
 
 </script>
 </body>
