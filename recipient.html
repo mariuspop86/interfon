@@ -19,11 +19,28 @@
   function successCallback(stream) {
 //    video.src = window.URL.createObjectURL(stream);
     currentUser.stream = stream;
+    var peer = undefined;
+    channel.bind('client-signal-' + currentUser.id, function(signal) {
+      if (peer === undefined) {
+        alert('something');
+        peer = new SimplePeer({ stream: currentUser.stream });
+
+        peer.on('signal', function (data) {
+          channel.trigger('client-signal-' + signal.userId, { userId: currentUser.id, data: data });
+        });
+
+        peer.on('message', function (data) {
+          console.log('got a message from remote peer: ' + data);
+        });
+      }
+
+      peer.signal(signal.data)
+    });
   }
   function errorCallback(error){
     console.log("getUserMedia error: ", error);
   }
-  navigator.getUserMedia(constraints, successCallback, errorCallback);
+
 
 
   // setting up pusher
@@ -40,6 +57,7 @@
 
   channel.bind('pusher:subscription_succeeded', function() {
     console.log('Channel members:', channel.members);
+    navigator.getUserMedia(constraints, successCallback, errorCallback);
   });
 
   // connecting
@@ -77,23 +95,7 @@
   //    peer.send('hey peer, how is it going?')
   //  });
   //
-    var peer = undefined;
-    channel.bind('client-signal-' + currentUser.id, function(signal) {
-      if (peer === undefined) {
-        alert('something');
-        peer = new SimplePeer();
 
-        peer.on('signal', function (data) {
-          channel.trigger('client-signal-' + signal.userId, { userId: currentUser.id, data: data });
-        });
-
-        peer.on('message', function (data) {
-          console.log('got a message from remote peer: ' + data);
-        });
-      }
-
-      peer.signal(signal.data)
-    });
 
 
 </script>
