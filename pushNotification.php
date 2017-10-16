@@ -1,4 +1,7 @@
 <?php
+
+echo 'mama';die;
+
     $ch = curl_init();
 
     $data = [
