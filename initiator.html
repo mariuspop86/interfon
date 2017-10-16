@@ -75,12 +75,12 @@
     });
 
     peer.on('ready', function () {
-      console.log('on ready');
+      alert('on ready');
       peer.send('hey peer, how is it going?')
     });
 
     peer.on('stream', function(stream) {
-      console.log('on srteam');
+      alert('on stream');
       var video = document.querySelector("video");
       video.src = window.URL.createObjectURL(stream);
     });

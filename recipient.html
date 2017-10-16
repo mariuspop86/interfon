@@ -80,6 +80,7 @@
     var peer = undefined;
     channel.bind('client-signal-' + currentUser.id, function(signal) {
       if (peer === undefined) {
+        alert('something');
         peer = new SimplePeer();
 
         peer.on('signal', function (data) {
