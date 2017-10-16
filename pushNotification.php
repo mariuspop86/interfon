@@ -9,7 +9,7 @@ $data = [
 ];
 
 $headers = [
-    "Authorization" => 32794,
+    "Authorization" => '255b5d71df13268a81fb89ccb29e5455',
 ];
 
 curl_setopt($ch, CURLOPT_URL, 'https://pushcrew.com/api/v1/send/all');
