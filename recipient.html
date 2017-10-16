@@ -52,10 +52,10 @@
 
   // setting up pusher
   var pusher = new Pusher('5e613cf066db77ef9bd6', {
-    authEndpoint: 'message.php',
-//    auth: {
-//      params: currentUser
-//    },
+    authEndpoint: 'auth.php',
+    auth: {
+      params: currentUser
+    },
     cluster: "eu"
   });
 
