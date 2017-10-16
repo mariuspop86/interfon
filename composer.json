@@ -2,8 +2,7 @@
     "name": "pusher/webrtc-datachannel-demo",
     "type": "project",
     "require": {
-        "pusher/pusher-php-server": "^2.6",
-        "pushpad/pushpad-php": "^1.1"
+        "pusher/pusher-php-server": "^2.6"
     },
     "license": "MiT",
     "authors": [

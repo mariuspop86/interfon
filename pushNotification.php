@@ -3,8 +3,8 @@
 $ch = curl_init();
 
 $data = [
-    'title' => 'Foo',
-    'message' => 'TestData',
+    'title' => 'VideoCom',
+    'message' => 'Cineva la usa',
     'url' => 'https://www.9gag.com'
 ];
 
