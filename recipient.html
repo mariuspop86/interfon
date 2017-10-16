@@ -12,7 +12,7 @@
     name: 'recipient',
     id: 2
   };
-  var channelName = 'private-interfon';
+  var channelName = 'interfon';
 
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
   var constraints = { audio: true, video: true };
@@ -47,9 +47,9 @@
   // setting up pusher
   var pusher = new Pusher('5e613cf066db77ef9bd6', {
     authEndpoint: 'message.php',
-    auth: {
-      params: currentUser
-    },
+//    auth: {
+//      params: currentUser
+//    },
     cluster: "eu"
   });
 

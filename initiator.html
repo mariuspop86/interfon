@@ -12,16 +12,17 @@
     name: 'initiator',
     id: 1
   };
+  Pusher.logToConsole = true;
 
   // setting up pusher
   var pusher = new Pusher('5e613cf066db77ef9bd6', {
     authEndpoint: 'message.php',
-    auth: {
-      params: currentUser
-    },
+//    auth: {
+//      params: currentUser
+//    },
     cluster: "eu"
   });
-  var channelName = 'private-interfon';
+  var channelName = 'interfon';
   // set channel
   var channel = pusher.subscribe(channelName);
 
