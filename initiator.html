@@ -28,7 +28,7 @@
   })();
 
   var currentUser = {
-    name: 'initiator',
+    name: 'initiator'+guid(),
     id: guid(),
     stream: undefined
   };
@@ -133,7 +133,7 @@
 
       peer.on('ready', function() {
         alert('connected');
-//        appendMesqsage(signal.userName, '<em>Connected</em>');
+//        appendMessage(signal.userName, '<em>Connected</em>');
       });
       peer.signal(signal.data)
     });
