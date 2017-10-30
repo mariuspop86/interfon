@@ -83,7 +83,7 @@
       var peer = new SimplePeer({ initiator: initiator, stream: currentUser.stream, trickle: false });
 
       peer.on('signal', function (data) {
-        console.log('peer.on.signal');
+        console.log('peer.on.signal', peerUserId);
         channel.trigger('client-signal-' + peerUserId, {
           userId: currentUser.id, userName: currentUser.name, data: data
         });
@@ -128,7 +128,7 @@
     });
 
     channel.bind('client-signal-' + currentUser.id, function(signal) {
-      console.log('bind client-signal');
+      console.log('bind client-signal-' + currentUser.id);
 //      console.log('client-signal-' + currentUser.id);
       var peer = peers[signal.userId];
 
