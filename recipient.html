@@ -124,7 +124,8 @@
     channel.bind('pusher:subscription_succeeded', function() {
 //      console.log('Channel members:', channel.members);
       console.log('pusher:subscription_succeeded');
-      lookForPeers();
+//      lookForPeers();
+      setupPeer(currentUser.id, currentUser.name, false);
     });
 
     channel.bind('client-signal-' + currentUser.id, function(signal) {
@@ -148,8 +149,8 @@
     console.log("getUserMedia error: ", error);
   }
 
-  navigator.getUserMedia(constraints, successCallback, errorCallback);
-
+//  navigator.getUserMedia(constraints, successCallback, errorCallback);
+  successCallback(null);
 </script>
 </body>
 </html>
