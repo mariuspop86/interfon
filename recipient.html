@@ -8,101 +8,137 @@
 <script src="js/simplepeer.js"></script>
 <script>
 
+  var guid = (function() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+    }
+    return function() {
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+          s4() + '-' + s4() + s4() + s4();
+    };
+  })();
+
   var currentUser = {
-    name: 'recipient',
-    id: 2
+    name: 'initiator',
+    id: guid(),
+    stream: undefined
   };
-  var channelName = 'presence-interfon';
+  // Pusher.logToConsole = true;
 
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-  var constraints = { audio: true, video: true };
+  var constraints = {
+    audio: false,
+    video: {
+      mandatory: {
+        minWidth: 320,
+        minHeight: 480
+      }
+    }
+  };
   var video = document.querySelector("video");
   function successCallback(stream) {
-//    video.src = window.URL.createObjectURL(stream);
+    console.log('stream success callback');
+
     currentUser.stream = stream;
-    var peer = undefined;
-    channel.bind('client-signal-' + currentUser.id, function(signal) {
-      if (peer === undefined) {
-        alert('something');
-        peer = new SimplePeer({ stream: currentUser.stream, channelName: channelName });
+    // setting up pusher
+    var pusher = new Pusher('5e613cf066db77ef9bd6', {
+      authEndpoint: 'auth.php',
+      auth: {
+        params: currentUser
+      },
+      cluster: "eu"
+    });
+    var channelName = 'presence-interfon';
+    // set channel
+    var channel = pusher.subscribe(channelName);
+    var peers = {};
 
-        peer.on('signal', function (data) {
-          channel.trigger('client-signal-' + signal.userId, { userId: currentUser.id, data: data });
-        });
+    function lookForPeers() {
+      console.log('lookForPeers');
+      for (var userId in channel.members.members) {
+        if (userId != currentUser.id) {
+          var member = channel.members.members[userId];
 
-        peer.on('message', function (data) {
-          console.log('got a message from remote peer: ' + data);
-        });
+          peers[userId] = initiateConnection(userId, member.name)
+        }
+      }
+    }
 
-        peer.on('stream', function(stream) {
-          console.log('on stream');
-          var video = document.querySelector("video");
-          video.src = window.URL.createObjectURL(stream);
+    function initiateConnection(peerUserId, peerUserName) {
+      return setupPeer(peerUserId, peerUserName, true);
+    };
+
+    function setupPeer(peerUserId, peerUserName, initiator) {
+      var peer = new SimplePeer({ initiator: initiator, stream: currentUser.stream, trickle: false });
+
+      peer.on('signal', function (data) {
+        channel.trigger('client-signal-' + peerUserId, {
+          userId: currentUser.id, userName: currentUser.name, data: data
         });
+      });
+
+      peer.on('stream', function(stream) {
+        console.log('on stream');
+        var video = document.querySelector("video");
+        video.src = window.URL.createObjectURL(stream);
+      });
+
+      peer.on('message', function (data) {
+        console.log(data);
+          /*if (data == '__SPEAKING__') {
+           $('#remoteVideos video').hide();
+           $("#remoteVideos video[data-user-id='" + peerUserId + "']").show();
+           } else {
+           appendMessage(peerUserName, data);
+           }*/
+      });
+
+      function close(userId, name) {
+        var peer = peers[userId];
+        if (peer) {
+          peer.destroy();
+          peers[userId] = undefined;
+        }
+        // $("[data-user-id='" + userId + "']").remove();
+        // appendMessage(name, '<em>Disconnected</em>');
       }
 
-      peer.signal(signal.data);
-      peer.send(stream);
+      peer.on('close', function() { close(peerUserId, peerUserName) });
+      window.onbeforeunload = function() { close(peerUserId, peerUserName) };
+
+      return peer;
+    }
+
+    channel.bind('pusher:subscription_succeeded', function() {
+//      console.log('Channel members:', channel.members);
+//      lookForPeers();
+      peer = setupPeer(currentUser.id, currentUser.name, false);
     });
+
+    channel.bind('client-signal-' + currentUser.id, function(signal) {
+//      console.log('client-signal-' + currentUser.id);
+      var peer = peers[signal.userId];
+
+      if (peer === undefined) {
+        peer = setupPeer(signal.userId, signal.userName, false);
+      }
+
+      peer.on('ready', function() {
+        alert('connected');
+//        appendMessage(signal.userName, '<em>Connected</em>');
+      });
+      peer.signal(signal.data)
+    });
+
   }
   function errorCallback(error){
     console.log("getUserMedia error: ", error);
   }
 
+  navigator.getUserMedia(constraints, successCallback, errorCallback);
 
-
-  // setting up pusher
-  var pusher = new Pusher('5e613cf066db77ef9bd6', {
-    authEndpoint: 'auth.php',
-    auth: {
-      params: currentUser
-    },
-    cluster: "eu"
-  });
-
-  // set channel
-  var channel = pusher.subscribe(channelName);
-
-  channel.bind('pusher:subscription_succeeded', function() {
-    console.log('Channel members:', channel.members);
-    navigator.getUserMedia(constraints, successCallback, errorCallback);
-  });
-
-  // connecting
-//  var peer1 = new SimplePeer({ initiator: true, stream: currentUser.stream });
-//  var peer2 = new SimplePeer();
-//
-//  peer1.on('signal', function (data) {
-//    // when peer1 has signaling data, give it to peer2
-//    peer2.signal(data);
-//  });
-//
-//  peer2.on('signal', function (data) {
-//    // same as above, but in reverse
-//    peer1.signal(data);
-//  });
-//
-//  peer1.on('ready', function () {
-//    // wait for 'ready' event before using the data channel
-//    peer1.send('hey peer2, how is it going?')
-//  });
-//
-//  peer2.on('message', function (data) {
-//    // got a data channel message
-//    console.log('got a message from peer1: ' + data);
-//  });
-
-  // remotes stuff
-  //  var peer = new SimplePeer({ initiator: true });
-  //
-  //  peer.on('signal', function (data) {
-  //    channel.trigger('client-signal-' + peerUserId, { userId: currentUser.id, data: data });
-  //  });
-  //
-  //  peer.on('ready', function () {
-  //    peer.send('hey peer, how is it going?')
-  //  });
-  //
 
 
 

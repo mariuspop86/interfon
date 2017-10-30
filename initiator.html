@@ -28,7 +28,7 @@
   })();
 
   var currentUser = {
-    name: 'initiator'+guid(),
+    name: 'initiator',
     id: guid(),
     stream: undefined
   };
@@ -36,7 +36,7 @@
 
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
   var constraints = { 
-    audio: true, 
+    audio: false,
     video: {
       mandatory: {
         minWidth: 320,
