@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head><title>getUserMedia</title></head>
+<style type="text/css">
+    video {
+        width: 100%;
+        max-height: 100%;
+        border: 2px solid #dcdcdc;
+    }
+</style>
 <body>
-<video autoplay></video>
+<video autoplay ></video>
 
 <script src="pusher.js"></script>
 <script src="js/simplepeer.js"></script>
@@ -67,13 +74,16 @@
     }
 
     function initiateConnection(peerUserId, peerUserName) {
+      console.log('initiateConnection');
       return setupPeer(peerUserId, peerUserName, true);
     };
 
     function setupPeer(peerUserId, peerUserName, initiator) {
+      console.log('setupPeer', initiator);
       var peer = new SimplePeer({ initiator: initiator, stream: currentUser.stream, trickle: false });
 
       peer.on('signal', function (data) {
+        console.log('peer.on.signal');
         channel.trigger('client-signal-' + peerUserId, {
           userId: currentUser.id, userName: currentUser.name, data: data
         });
@@ -113,11 +123,12 @@
 
     channel.bind('pusher:subscription_succeeded', function() {
 //      console.log('Channel members:', channel.members);
-//      lookForPeers();
-      peer = setupPeer(currentUser.id, currentUser.name, false);
+      console.log('pusher:subscription_succeeded');
+      lookForPeers();
     });
 
     channel.bind('client-signal-' + currentUser.id, function(signal) {
+      console.log('bind client-signal');
 //      console.log('client-signal-' + currentUser.id);
       var peer = peers[signal.userId];
 
@@ -138,9 +149,6 @@
   }
 
   navigator.getUserMedia(constraints, successCallback, errorCallback);
-
-
-
 
 </script>
 </body>
