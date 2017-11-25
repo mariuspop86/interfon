@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87316b46-67cb-475a-9982-5e31115a1d26" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/young-basin-74115.iml" afterPath="$PROJECT_DIR$/.idea/young-basin-74115.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/initiator.html" afterPath="$PROJECT_DIR$/initiator.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/recipient.html" afterPath="$PROJECT_DIR$/recipient.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,21 +14,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="initiator.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="initiator.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/initiator.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="155" column="26" lean-forward="false" selection-start-line="155" selection-start-column="26" selection-end-line="155" selection-end-column="26" />
+            <state relative-caret-position="1720">
+              <caret line="86" column="48" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="160" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="recipient.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="recipient.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/recipient.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2620">
-              <caret line="131" column="6" lean-forward="false" selection-start-line="131" selection-start-column="6" selection-end-line="131" selection-end-column="58" />
+            <state relative-caret-position="-670">
+              <caret line="71" column="44" lean-forward="false" selection-start-line="71" selection-start-column="26" selection-end-line="71" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -60,6 +58,7 @@
       <find>signal</find>
       <find>pusher.</find>
       <find>successCallback</find>
+      <find>initiateConnection</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -76,8 +75,8 @@
         <option value="$PROJECT_DIR$/js/functions.js" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.js" />
         <option value="$PROJECT_DIR$/js/hark.js" />
-        <option value="$PROJECT_DIR$/recipient.html" />
         <option value="$PROJECT_DIR$/initiator.html" />
+        <option value="$PROJECT_DIR$/recipient.html" />
       </list>
     </option>
   </component>
@@ -257,12 +256,12 @@
       <workItem from="1508480318144" duration="1234000" />
       <workItem from="1508929194428" duration="1442000" />
       <workItem from="1509351757939" duration="5839000" />
-      <workItem from="1511597419923" duration="400000" />
+      <workItem from="1511597419923" duration="1162000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22973000" />
+    <option name="totallyTimeSpent" value="23735000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1985" y="-4" width="1855" height="1084" extended-state="6" />
@@ -436,14 +435,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/recipient.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2620">
-          <caret line="131" column="6" lean-forward="false" selection-start-line="131" selection-start-column="6" selection-end-line="131" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-220">
@@ -468,8 +459,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/initiator.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="155" column="26" lean-forward="false" selection-start-line="155" selection-start-column="26" selection-end-line="155" selection-end-column="26" />
+        <state relative-caret-position="1720">
+          <caret line="86" column="48" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="160" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/recipient.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-670">
+          <caret line="71" column="44" lean-forward="false" selection-start-line="71" selection-start-column="26" selection-end-line="71" selection-end-column="44" />
           <folding />
         </state>
       </provider>

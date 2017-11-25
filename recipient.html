@@ -9,6 +9,7 @@
     }
 </style>
 <body>
+<a href="#" id="connect" onclick="connectUsers()">Connect</a>
 <video autoplay ></video>
 
 <script src="pusher.js"></script>
@@ -28,7 +29,7 @@
   })();
 
   var currentUser = {
-    name: 'initiator',
+    name: 'receptor',
     id: guid(),
     stream: undefined
   };
@@ -73,10 +74,10 @@
       }
     }
 
-    function initiateConnection(peerUserId, peerUserName) {
+    /*function initiateConnection(peerUserId, peerUserName) {
       console.log('initiateConnection');
       return setupPeer(peerUserId, peerUserName, true);
-    };
+    };*/
 
     function setupPeer(peerUserId, peerUserName, initiator) {
       console.log('setupPeer', initiator);
@@ -124,8 +125,7 @@
     channel.bind('pusher:subscription_succeeded', function() {
 //      console.log('Channel members:', channel.members);
       console.log('pusher:subscription_succeeded');
-//      lookForPeers();
-      setupPeer(currentUser.id, currentUser.name, false);
+      lookForPeers();
     });
 
     channel.bind('client-signal-' + currentUser.id, function(signal) {
@@ -149,8 +149,13 @@
     console.log("getUserMedia error: ", error);
   }
 
-//  navigator.getUserMedia(constraints, successCallback, errorCallback);
-  successCallback(null);
+  //  navigator.getUserMedia(constraints, successCallback, errorCallback);
+
+
+  function connectUsers(){
+    successCallback(null);
+  }
+
 </script>
 </body>
 </html>
