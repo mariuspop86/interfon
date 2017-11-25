@@ -29,7 +29,7 @@
   })();
 
   var currentUser = {
-    name: 'receptor',
+    name: 'recipient',
     id: guid(),
     stream: undefined
   };
@@ -74,10 +74,10 @@
       }
     }
 
-    /*function initiateConnection(peerUserId, peerUserName) {
+    function initiateConnection(peerUserId, peerUserName) {
       console.log('initiateConnection');
       return setupPeer(peerUserId, peerUserName, true);
-    };*/
+    };
 
     function setupPeer(peerUserId, peerUserName, initiator) {
       console.log('setupPeer', initiator);
@@ -125,7 +125,7 @@
     channel.bind('pusher:subscription_succeeded', function() {
 //      console.log('Channel members:', channel.members);
       console.log('pusher:subscription_succeeded');
-//      lookForPeers();
+      lookForPeers();
     });
 
     channel.bind('client-signal-' + currentUser.id, function(signal) {
