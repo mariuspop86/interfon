@@ -9,6 +9,7 @@
   }
 </style>
 <body>
+<a href="#" id="connect" onclick="connectUsers()">Connect</a>
 <video autoplay ></video>
 
 <script src="pusher.js"></script>
@@ -149,7 +150,11 @@
   }
 
 //  navigator.getUserMedia(constraints, successCallback, errorCallback);
-  successCallback(null)
+
+
+  function connectUsers(){
+    successCallback(null);
+  }
 
 </script>
 </body>
