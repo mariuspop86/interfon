@@ -28,6 +28,8 @@
     };
   })();
 
+  var t;
+
   var currentUser = {
     name: 'initiator',
     id: guid(),
@@ -84,6 +86,7 @@
       var peer = new SimplePeer({ initiator: initiator, stream: currentUser.stream, trickle: false });
 
       peer.on('signal', function (data) {
+        clearInterval(t);
         console.log('peer.on.signal', peerUserId);
         channel.trigger('client-signal-' + peerUserId, {
           userId: currentUser.id, userName: currentUser.name, data: data
@@ -125,7 +128,9 @@
     channel.bind('pusher:subscription_succeeded', function() {
 //      console.log('Channel members:', channel.members);
       console.log('pusher:subscription_succeeded');
-      lookForPeers();
+      t = setInterval(lookForPeers,1000);
+
+//      ();
     });
 
     channel.bind('client-signal-' + currentUser.id, function(signal) {
