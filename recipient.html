@@ -125,7 +125,7 @@
     channel.bind('pusher:subscription_succeeded', function() {
 //      console.log('Channel members:', channel.members);
       console.log('pusher:subscription_succeeded');
-      lookForPeers();
+//      lookForPeers();
     });
 
     channel.bind('client-signal-' + currentUser.id, function(signal) {
