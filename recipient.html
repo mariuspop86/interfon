@@ -29,7 +29,7 @@
   })();
 
   var currentUser = {
-    name: 'recipient',
+    name: 'initiator',
     id: guid(),
     stream: undefined
   };
@@ -81,7 +81,7 @@
 
     function setupPeer(peerUserId, peerUserName, initiator) {
       console.log('setupPeer', initiator);
-      var peer = new SimplePeer({ initiator: initiator, stream: currentUser.stream, trickle: false });
+      var peer = new SimplePeer({ initiator: initiator, stream: currentUser.stream, trickle: false, channelName: channelName});
 
       peer.on('signal', function (data) {
         console.log('peer.on.signal', peerUserId);
